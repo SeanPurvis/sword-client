@@ -7,7 +7,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 
 import {
   checkIndexAuthorization,
-  checkDashboardAuthorization,
+  checkDashboardAuthorization
 } from './lib/check-auth'
 
 // Import our components
@@ -35,13 +35,16 @@ const store = createStore(
 
 // Begin Optional
 /*eslint-disable */
-const composeSetup = process.env.NODE_ENV !== 'production' && typeof window === 'object' &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose
+const composeSetup =
+  process.env.NODE_ENV !== 'production' &&
+  typeof window === 'object' &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : compose
 /*eslint-enable */
 const store = createStore(
   IndexReducer,
-  composeSetup(applyMiddleware(sagaMiddleware)), // Allows Redux DevTools to watch sagas
+  composeSetup(applyMiddleware(sagaMiddleware)) // Allows Redux DevTools to watch sagas
 )
 // End Optional
 
@@ -54,10 +57,18 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute onEnter={checkIndexAuthorization(store)} />
-        <Route onEnter={checkIndexAuthorization(store)} path="/login" component={Login}/>
-        <Route onEnter={checkDashboardAuthorization(store)} path="/dashboard" component={Dashboard} />
+        <Route
+          onEnter={checkIndexAuthorization(store)}
+          path="/login"
+          component={Login}
+        />
+        <Route
+          onEnter={checkDashboardAuthorization(store)}
+          path="/dashboard"
+          component={Dashboard}
+        />
       </Route>
     </Router>
   </Provider>,
   document.getElementById('root')
-  )
+)

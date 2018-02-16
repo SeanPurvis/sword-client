@@ -2,40 +2,33 @@ import { take, fork, cancel, cancelled, call, put } from 'redux-saga/effects'
 import { browserHistory } from 'react-router'
 import { handleApiErrors } from '../lib/api-errors'
 // Login Constants
-import {
-  LOGIN_REQUESTING,
-  LOGIN_SUCCESS,
-  LOGIN_ERROR,
-} from './constants'
+import { LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR } from './constants'
 // Modify Client state
-import {
-  setClient,
-  unsetClient,
-} from '../client/actions'
+import { setClient, unsetClient } from '../client/actions'
 
-import {
-  CLIENT_UNSET,
-} from '../client/constants'
+import { CLIENT_UNSET } from '../client/constants'
 
 // url fron .env config file
 const loginUrl = `${process.env.REACT_APP_API_URL}/jwt/authenticate`
 
-function loginApi (username, password) {
+function loginApi(username, password) {
   // call to the "fetch" native function
   return fetch(loginUrl, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ username, password })
   })
     .then(handleApiErrors)
     .then(response => response.json())
     .then(json => json)
-    .catch((error) => { throw error })
+    .catch(error => {
+      throw error
+    })
 }
 
-function* logout () {
+function* logout() {
   // Dispatch CLIENT_UNSET action
   // Remove token
   // Redirect to LOGIN
@@ -46,7 +39,7 @@ function* logout () {
 
 // This will be run when the LOGIN_REQUESTING
 // Action is found by the watcher
-function* loginFlow (username, password) {
+function* loginFlow(username, password) {
   let token
   try {
     // Sagas will pause herre until API Call is successful or
@@ -55,7 +48,7 @@ function* loginFlow (username, password) {
 
     // Inform Redux to set the client token and that login was successful
     yield put(setClient(token))
-    yield put({type: LOGIN_SUCCESS})
+    yield put({ type: LOGIN_SUCCESS })
     // Set stringified version of access token to localstorage
     localStorage.setItem('token', JSON.stringify(token))
 
@@ -63,7 +56,7 @@ function* loginFlow (username, password) {
     browserHistory.push('/dashboard')
   } catch (error) {
     // If error is caught, send it to Redux
-    yield put({ type: LOGIN_ERROR, error})
+    yield put({ type: LOGIN_ERROR, error })
   } finally {
     // If the forked login API call task was cancelled, redirect to login
     if (yield cancelled()) {
@@ -76,11 +69,9 @@ function* loginFlow (username, password) {
 
 // Our watcher(saga)
 function* loginWatcher() {
-
   // Generators halt execution until their next step
   // Therefore this loop will not be executing a Bazillion times a second
-  while(true) {
-
+  while (true) {
     // `take` pauses the sagas and will pause here until
     // a `LOGIN_REQUESTING` action is seen. It will then
     // take that action's payload, the username and password.

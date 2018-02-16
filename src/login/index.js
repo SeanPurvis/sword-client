@@ -21,14 +21,14 @@ class Login extends Component {
       requesting: PropTypes.bool,
       successful: PropTypes.bool,
       messages: PropTypes.array,
-      errors: PropTypes.array,
-    }),
+      errors: PropTypes.array
+    })
   }
 
-// Redux Form will call this function with the values of
-// the Login form fields when the form is submitted.
-// the function will call the action
-  submit = (values) => {
+  // Redux Form will call this function with the values of
+  // the Login form fields when the form is submitted.
+  // the function will call the action
+  submit = values => {
     this.props.loginRequest(values)
   }
 
@@ -37,12 +37,7 @@ class Login extends Component {
     // and pieces of the global state.
     const {
       handleSubmit,
-      login: {
-        requesting,
-        successful,
-        messages,
-        errors,
-      },
+      login: { requesting, successful, messages, errors }
     } = this.props
 
     return (
@@ -70,21 +65,20 @@ class Login extends Component {
           <button action="submit">LOGIN</button>
         </form>
         <div className="auth-messages">
-          {
-            /* if there are messages or errors we show them here*/
-          }
-          {!requesting && !! errors.length && (
-            <Errors message="Failure to loin due to:" errors={errors}/>
-          )}
-          {!requesting && !!Messages.length && (
-            <Messages messages={messages} />
-          )}
+          {/* if there are messages or errors we show them here*/}
+          {!requesting &&
+            !!errors.length && (
+              <Errors message="Failure to loin due to:" errors={errors} />
+            )}
+          {!requesting && !!Messages.length && <Messages messages={messages} />}
           {requesting && <div>Logging in...</div>}
-          {!requesting && successful && (
-            <div>
-              Login Successful! <Link to="/dashboard">Click here to go to the Dashboard</Link>
-            </div>
-          )}
+          {!requesting &&
+            successful && (
+              <div>
+                Login Successful!{' '}
+                <Link to="/dashboard">Click here to go to the Dashboard</Link>
+              </div>
+            )}
         </div>
       </div>
     )
@@ -93,7 +87,7 @@ class Login extends Component {
 
 // Grab the only piece of state needed
 const mapStateToProps = state => ({
-  login: state.login,
+  login: state.login
 })
 
 // Connect component to redux and attach `login` piece
@@ -104,7 +98,7 @@ const connected = connect(mapStateToProps, { loginRequest })(Login)
 // Connect the now connected component to Redux Form. It will namespace
 // the form we use in this component as `login`
 const formed = reduxForm({
-  form: 'login',
+  form: 'login'
 })(connected)
 
 export default formed

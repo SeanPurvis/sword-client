@@ -6,7 +6,7 @@ import login from './login/reducer'
 const IndexReducer = combineReducers({
   login,
   client,
-  form,
+  form
 })
 
 export default IndexReducer

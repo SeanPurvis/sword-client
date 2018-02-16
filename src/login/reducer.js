@@ -1,24 +1,20 @@
-import {
-  LOGIN_REQUESTING,
-  LOGIN_SUCCESS,
-  LOGIN_ERROR,
-} from './constants'
+import { LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR } from './constants'
 
 const initialState = {
   requesting: false,
   succesful: false,
   messages: [],
-  errors: [],
+  errors: []
 }
 
-const reducer = function loginReducer (state = initialState, action) {
+const reducer = function loginReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_REQUESTING:
       return {
         requesting: true,
         successful: false,
         messages: [{ body: 'Logging in...', time: new Date() }],
-        errors: [],
+        errors: []
       }
 
     // reset the state and add a body message of success!
@@ -27,19 +23,21 @@ const reducer = function loginReducer (state = initialState, action) {
         errors: [],
         messages: [],
         requesting: false,
-        succesful: true,
+        succesful: true
       }
 
     // reset the state with errors!
     case LOGIN_ERROR:
       return {
-        errors: state.errors.concat([{
-          body: action.error.toString(),
-          time: new Date(),
-        }]),
+        errors: state.errors.concat([
+          {
+            body: action.error.toString(),
+            time: new Date()
+          }
+        ]),
         messages: [],
         requesting: false,
-        successful: false,
+        successful: false
       }
 
     default:

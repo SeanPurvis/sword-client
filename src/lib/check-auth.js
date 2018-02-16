@@ -1,7 +1,6 @@
 import { setClient } from '../client/actions'
 
-function checkAuthorization (dispatch) {
-
+function checkAuthorization(dispatch) {
   // Grab token from local localstorage
   const storedToken = localStorage.getItem('token')
 
@@ -24,8 +23,7 @@ function checkAuthorization (dispatch) {
 
   return false
 }
-export function checkIndexAuthorization ({ dispatch }) {
-
+export function checkIndexAuthorization({ dispatch }) {
   /**
   @param nextState the next route being navigated to in the Router
   @param replace a helper to change the route
@@ -38,13 +36,12 @@ export function checkIndexAuthorization ({ dispatch }) {
       return next()
     }
 
-  if (nextState.location.pathname !== '/login') replace('login')
+    if (nextState.location.pathname !== '/login') replace('login')
     return next()
   }
 }
 
-export function checkDashboardAuthorization ({ dispatch, getState }) {
-
+export function checkDashboardAuthorization({ dispatch, getState }) {
   /**
   @param nextState the next route being navigated to in the Router
   @param replace a helper to change the route
