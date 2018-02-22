@@ -8,7 +8,7 @@
 }
 
 .App-header {
-  background-color: #222;
+  background-color: #82786f;
   height: 150px;
   padding: 20px;
   color: white;
@@ -73,13 +73,13 @@ button {
   font-size: 18px;
   font-weight: 400;
   display: inline-block;
-  color: #fafafa;
+  color: #000000;
   text-decoration: none;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   text-decoration: none;
-  background: #cc7a6f;
-  color: #fafafa;
+  background: #82786f;
+  color: #000000;
   margin-top: 1rem;
 }
 
