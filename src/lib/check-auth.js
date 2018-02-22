@@ -36,7 +36,7 @@ export function checkIndexAuthorization({ dispatch }) {
       return next()
     }
 
-    if (nextState.location.pathname !== '/login') replace('login')
+    replace('login')
     return next()
   }
 }
