@@ -14,6 +14,7 @@ import {
 import App from './App'
 import Login from './login'
 import Dashboard from './dashboard'
+import Users from './users'
 import './index.css'
 
 // Import index reducer and sagas
@@ -57,16 +58,13 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute onEnter={checkIndexAuthorization(store)} />
-        <Route
-          onEnter={checkIndexAuthorization(store)}
-          path="/login"
-          component={Login}
-        />
+        <Route path="/login" component={Login} />
         <Route
           onEnter={checkDashboardAuthorization(store)}
           path="/dashboard"
           component={Dashboard}
         />
+        <Route path="/users" component={Users} />
       </Route>
     </Router>
   </Provider>,

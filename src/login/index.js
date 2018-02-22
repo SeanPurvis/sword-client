@@ -42,7 +42,7 @@ class Login extends Component {
 
     return (
       <div className="login">
-        <form className="sword-form" onSubmit={handleSubmit(this.submit)}>
+        <form className="login-form" onSubmit={handleSubmit(this.submit)}>
           <h1>Login</h1>
           <label htmlFor="username">Username</label>
           <Field
