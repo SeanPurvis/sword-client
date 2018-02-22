@@ -4,11 +4,8 @@ import {
   USER_CREATE_ERROR
 } from './constants'
 
-/**
-@param client current logged in client
-@param user user object to be created in database
-**/
-export const userCreate = function usercreate(client, user) {
+// Create requires that we pass it our current logged in client AND user params
+export const userCreate = function userCreate(client, user) {
   return {
     type: USER_CREATING,
     client,
