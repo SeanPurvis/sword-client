@@ -8,7 +8,7 @@ import {
 } from './constants'
 
 const initialState = {
-  list: [],
+  list: [], // where we'll store users
   requesting: false,
   successful: false,
   messages: [],
@@ -24,14 +24,14 @@ const reducer = function userReducer(state = initialState, action) {
         successful: false,
         messages: [
           {
-            body: `User: ${action.user.username} being created...`,
+            body: `User: ${action.user.name} being created...`,
             time: new Date()
           }
         ],
         errors: []
       }
 
-    // On Success include the new user into the list
+    // On success include the new user into our list
     case USER_CREATE_SUCCESS:
       return {
         list: state.list.concat([action.user]),
@@ -39,7 +39,7 @@ const reducer = function userReducer(state = initialState, action) {
         successful: true,
         messages: [
           {
-            body: `User: ${action.user.username} created!`,
+            body: `User: ${action.user} created!`,
             time: new Date()
           }
         ],
@@ -58,6 +58,48 @@ const reducer = function userReducer(state = initialState, action) {
             time: new Date()
           }
         ])
+      }
+
+    case USER_REQUESTING:
+      return {
+        ...state, // ensure that we don't erase fetched ones
+        requesting: false,
+        successful: true,
+        messages: [
+          {
+            body: 'Fetching users...!',
+            time: new Date()
+          }
+        ],
+        errors: []
+      }
+
+    case USER_REQUEST_SUCCESS:
+      return {
+        list: action.users, // replace with fresh list
+        requesting: false,
+        successful: true,
+        messages: [
+          {
+            body: 'Users refreshed',
+            time: new Date()
+          }
+        ],
+        errors: []
+      }
+
+    case USER_REQUEST_ERROR:
+      return {
+        requesting: false,
+        successful: false,
+        messages: [],
+        errors:
+          state.errors.concat[
+            {
+              body: action.error.toString(),
+              time: new Date()
+            }
+          ]
       }
 
     default:
