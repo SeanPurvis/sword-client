@@ -9,10 +9,11 @@ Dependencies: <br>
 
 #### To Run the Client: <br>
 
-clone this repository<br>
-cd into root directory of repository<br>
+###### `$ git clone https://github.com/SeanTPurvis/sword-client.git` <br>
 
-###### `$ docker-compose up -d --build` <br>
+###### `$ cd sword-client`
+
+###### `$ docker-compose up -d --build`
 
 Client should be at http://localhost:3000<br>
 
