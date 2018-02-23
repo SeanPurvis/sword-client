@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+
+  sword-client:
+    container_name: sword-client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_URL=http://131.95.12.193:8080 # IP of API, edit for your environment
