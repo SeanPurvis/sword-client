@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import Messages from '../notifications/Messages'
 import Errors from '../notifications/Errors'
 
-import { userCreate } from './actions'
+import { userCreate, userRequest } from './actions'
 
 const usernameRequired = value => (value ? undefined : 'Username Required')
 
@@ -25,10 +25,18 @@ class Users extends Component {
       errors: PropTypes.array
     }).isRequired,
     userCreate: PropTypes.func.isRequired,
+    userRequest: PropTypes.func.isRequired,
     reset: PropTypes.func.isRequired
   }
   constructor(props) {
     super(props)
+
+    this.fetchUsers()
+  }
+
+  fetchUsers = () => {
+    const { client, userRequest } = this.props
+    return userRequest(client)
   }
   submit = user => {
     const { client, userCreate, reset } = this.props
@@ -125,8 +133,22 @@ class Users extends Component {
             <br />
             <button action="submit">CREATE</button>
           </form>
+          <hr />
+          <div className="user-messages">
+            {requesting && <span>Creating user...</span>}
+            {!requesting &&
+              !!errors.length && (
+                <Errors
+                  message="Failure to create user due to:"
+                  errors={errors}
+                />
+              )}
+            {!requesting &&
+              successful &&
+              !!messages.length && <Messages messages={messages} />}
+          </div>
         </div>
-        {/* <div className="user-list">
+        <div className="user-list">
           <table>
             <thead>
               <tr>
@@ -144,9 +166,9 @@ class Users extends Component {
                 list.map(user => (
                   <tr key={user.id}>
                     <td>
-                      <strong>{`${user.username}`}</strong>
+                      <strong>{`${user.name}`}</strong>
                     </td>
-                    <td>{`${user.name}`}</td>
+                    <td>{`${user.username}`}</td>
                     <td>{`${user.phone}`}</td>
                     <td>{`${user.employer}`}</td>
                     <td>{`${user.role}`}</td>
@@ -155,8 +177,8 @@ class Users extends Component {
                 ))}
             </tbody>
           </table>
-          <button onClick={this.fetchUsers}>Refetch Users!</button>
-        </div> */}
+          <button onClick={this.fetchUsers}>REFRESH</button>
+        </div>
       </div>
     )
   }
@@ -169,7 +191,7 @@ const mapStateToProps = state => ({
 })
 
 // Make client, user, and userCreate() available in props
-const connected = connect(mapStateToProps, { userCreate })(Users)
+const connected = connect(mapStateToProps, { userCreate, userRequest })(Users)
 const formed = reduxForm({
   form: 'users'
 })(connected)

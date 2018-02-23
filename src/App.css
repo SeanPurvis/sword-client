@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'Lucida Grande';
 }
 
 .App-logo {
@@ -9,19 +10,14 @@
 
 .App-header {
   background-color: #82786f;
-  height: 150px;
+  height: 170px;
   padding: 20px;
   color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
 }
 
 .App-intro {
   font-size: large;
 }
-
 .App-body {
   box-sizing: border-box;
   padding: 20px;
@@ -29,27 +25,23 @@
   width: 100%;
 }
 
-@keyframes App-logo-spin {
+/* @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
-
-button[disabled] {
-  opacity: 0.6;
-}
+} */
 
 * {
   box-sizing: border-box;
 }
 
-.login-form input[type='text'],
-.login-form input[type='email'],
-.login-form input[type='password'],
-.login-form input[type='select'] {
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='number'] {
   display: block;
   margin: 0;
   width: 100%;
@@ -59,10 +51,10 @@ button[disabled] {
   box-shadow: none;
   border-radius: none;
 }
-.login-form input[type='text']:focus,
-.login-form input[type='email']:focus,
-.login-form input[type='password']:focus,
-.login-form input[type='select']:focus {
+input[type='text']:focus,
+input[type='email']:focus,
+input[type='password']:focus,
+input[type='number']:focus {
   outline: none;
 }
 
@@ -73,14 +65,18 @@ button {
   font-size: 18px;
   font-weight: 400;
   display: inline-block;
-  color: #000000;
+  color: #fafafa;
   text-decoration: none;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   text-decoration: none;
-  background: #82786f;
-  color: #000000;
+  background: #e98300;
+  color: #fafafa;
   margin-top: 1rem;
+}
+
+button[disabled] {
+  opacity: 0.6;
 }
 
 label {
@@ -88,20 +84,46 @@ label {
   margin-bottom: 0.25rem;
 }
 
+ul {
+  padding-left: 20px;
+  list-style-type: 0;
+}
+
+ul li {
+  margin-top: 1rem;
+}
+
+ul li:first-child {
+  margin-top: 0;
+}
+
+hr {
+  margin: 30px 0 20px;
+}
+
 .user-form,
+.user-list,
 .login-form {
   border: 1px solid #dedede;
   text-align: left;
   display: inline-block;
   vertical-align: top;
-  width: 400px;
+  width: auto;
   padding: 20px;
+}
+
+.user-list {
+  margin-left: 20px;
 }
 
 .user-form input[type='text'],
 .user-form input[type='email'],
 .user-form input[type='password'],
-.user-form input[type='select'] {
+.user-form input[type='number'],
+.login-form input[type='text'],
+.login-form input[type='email'],
+.login-form input[type='password'],
+.login-form input[type='number'] {
   padding: 10px;
   border: solid 1px #dcdcdc;
   transition: box-shadow 0.3s, border 0.3s;
@@ -111,15 +133,51 @@ label {
 .user-form input[type='text']:focus,
 .user-form input[type='email']:focus,
 .user-form input[type='password']:focus,
-.user-form input[type='select']:focus {
+.user-form input[type='number']:focus,
+.login-form input[type='text']:focus,
+.login-form input[type='email']:focus,
+.login-form input[type='password']:focus,
+.login-form input[type='number']:focus {
   border: solid 1px #0fbbec;
   box-shadow: 0 0 10px 0px #61dafb;
 }
 
-.auth-messages {
+.auth-messages,
+.user-messages {
   margin-top: 1rem;
 }
-.auth-messages ul {
+.auth-messages,
+.user-messages ul {
   list-style-type: none;
   padding-left: 0;
+}
+table {
+  text-align: left;
+  font-size: 14px;
+  width: 100%;
+}
+table th {
+  padding: 21px 25px 22px 25px;
+  border-bottom: 1px solid #e0e0e0;
+}
+table th:first-child {
+  text-align: left;
+  padding-left: 10px;
+}
+
+table tr {
+  text-align: center;
+  padding-left: 10px;
+}
+table td:first-child {
+  text-align: left;
+  padding-left: 10px;
+  border-left: 0;
+}
+table td {
+  padding: 10px;
+}
+
+table tr:hover td {
+  background: #f2f2f2;
 }
