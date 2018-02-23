@@ -1,11 +1,23 @@
-FROM ubuntu:xenial
+# Start with the almighty Node
+FROM node:8.9.4
 
-# Install npm
-ADD https://deb.nodesource.com/setup_8.x /setup_8.x
-RUN bash setup_8.x && apt install -y nodejs
+# Set working directory
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
 
-ADD . /sword
-WORKDIR /sword
-RUN npm install
+# Install Yarn, because npm dependency management is garbage
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
-ENTRYPOINT ["npm", "start"]
+# Make yarn available to SH
+ENV PATH="/root/.yarn/bin/:${PATH}"
+
+# add `/usr/src/app/node_modules/.bin` to $PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+ADD package.json /usr/src/app/package.json
+RUN yarn install
+RUN yarn add react-scripts@1.1.1
+
+# start app
+CMD ["yarn", "start"]
