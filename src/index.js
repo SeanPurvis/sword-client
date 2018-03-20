@@ -3,19 +3,12 @@ import ReactDOM from 'react-dom'
 import { applyMiddleware, createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'
-//import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 
-import {
-  checkIndexAuthorization,
-  checkDashboardAuthorization
-} from './lib/check-auth'
+// Bootstrap Stuff
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-// Import our components
-import App from './App'
-import Login from './login'
-import Users from './users'
-import './index.css'
+// Import our app
+import App from './app/App'
 
 // Import index reducer and sagas
 import IndexReducer from './index-reducer'
@@ -33,7 +26,6 @@ const store = createStore(
   applyMiddleware(sagaMiddleware)
 )
 **/
-
 // Begin Optional
 /*eslint-disable */
 const composeSetup =
@@ -43,11 +35,12 @@ const composeSetup =
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose
 /*eslint-enable */
+// End Optional
+
 const store = createStore(
   IndexReducer,
   composeSetup(applyMiddleware(sagaMiddleware)) // Allows Redux DevTools to watch sagas
 )
-// End Optional
 
 // Begin Index saga
 sagaMiddleware.run(IndexSagas)
@@ -55,14 +48,7 @@ sagaMiddleware.run(IndexSagas)
 // Setup top level router component with React Router
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={App}>
-        <IndexRoute onEnter={checkIndexAuthorization(store)} />
-        <Route path="/login" component={Login} />
-        <Route onEnter={checkDashboardAuthorization(store)} path="/dashboard" />
-        <Route path="/users" component={Users} />
-      </Route>
-    </Router>
+    <App />
   </Provider>,
   document.getElementById('root')
 )

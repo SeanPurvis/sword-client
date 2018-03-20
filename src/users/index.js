@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
+import { Table } from 'react-bootstrap'
 
 import Messages from '../notifications/Messages'
 import Errors from '../notifications/Errors'
@@ -131,7 +132,10 @@ class Users extends Component {
               <option value="counselor">counselor</option>
             </Field>
             <br />
-            <button disabled={invalid} action="submit">
+            <button
+              className="btn btn-primary"
+              disabled={invalid}
+              action="submit">
               CREATE
             </button>
           </form>
@@ -151,7 +155,10 @@ class Users extends Component {
           </div>
         </div>
         <div className="user-list">
-          <table>
+          <button className="btn btn-primary" onClick={this.fetchUsers}>
+            REFRESH
+          </button>
+          <Table striped bordered condensed hover>
             <thead>
               <tr>
                 <th>Name</th>
@@ -178,8 +185,7 @@ class Users extends Component {
                   </tr>
                 ))}
             </tbody>
-          </table>
-          <button onClick={this.fetchUsers}>REFRESH</button>
+          </Table>
         </div>
       </div>
     )
