@@ -4,6 +4,7 @@ import { applyMiddleware, createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+//import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 
 import {
   checkIndexAuthorization,
@@ -13,7 +14,6 @@ import {
 // Import our components
 import App from './App'
 import Login from './login'
-import Dashboard from './dashboard'
 import Users from './users'
 import './index.css'
 
@@ -59,11 +59,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute onEnter={checkIndexAuthorization(store)} />
         <Route path="/login" component={Login} />
-        <Route
-          onEnter={checkDashboardAuthorization(store)}
-          path="/dashboard"
-          component={Dashboard}
-        />
+        <Route onEnter={checkDashboardAuthorization(store)} path="/dashboard" />
         <Route path="/users" component={Users} />
       </Route>
     </Router>

@@ -30,7 +30,6 @@ class Users extends Component {
   }
   constructor(props) {
     super(props)
-
     this.fetchUsers()
   }
 
@@ -63,6 +62,7 @@ class Users extends Component {
               className="username"
               label="Username"
               component="input"
+              validate={usernameRequired}
             />
             <br />
             <label htmlFor="name">Name:</label>
@@ -131,7 +131,9 @@ class Users extends Component {
               <option value="counselor">counselor</option>
             </Field>
             <br />
-            <button action="submit">CREATE</button>
+            <button disabled={invalid} action="submit">
+              CREATE
+            </button>
           </form>
           <hr />
           <div className="user-messages">
