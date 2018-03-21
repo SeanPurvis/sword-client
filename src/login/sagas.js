@@ -1,5 +1,5 @@
 import { take, fork, cancel, cancelled, call, put } from 'redux-saga/effects'
-import { browserHistory } from 'react-router'
+import { push } from 'react-router-redux'
 import { handleApiErrors } from '../lib/api-errors'
 // Login Constants
 import { LOGIN_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR } from './constants'
@@ -34,7 +34,7 @@ function* logout() {
   // Redirect to LOGIN
   yield put(unsetClient())
   localStorage.removeItem('token')
-  browserHistory.push('/login')
+  push('/login')
 }
 
 // This will be run when the LOGIN_REQUESTING
@@ -52,15 +52,15 @@ function* loginFlow(username, password) {
     // Set stringified version of access token to localstorage
     localStorage.setItem('token', JSON.stringify(token))
 
-    // redirect to dashboard
-    browserHistory.push('/dashboard')
+    // redirect to users page
+    push('/users')
   } catch (error) {
     // If error is caught, send it to Redux
     yield put({ type: LOGIN_ERROR, error })
   } finally {
     // If the forked login API call task was cancelled, redirect to login
     if (yield cancelled()) {
-      browserHistory.push('/login')
+      push('/login')
     }
   }
 

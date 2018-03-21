@@ -3,11 +3,16 @@ import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import PropTypes from 'prop-types'
+import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap'
 
-import Messages from '../notifications/Messages'
-import Errors from '../notifications/Errors'
+import Messages from '../../notifications/Messages'
+import Errors from '../../notifications/Errors'
 
-import loginRequest from './actions'
+import loginRequest from '../actions'
+
+function ReduxFormControl({ input, meta, ...props }) {
+  return <FormControl {...props} {...input} />
+}
 
 // If testing, you'd want to export this component
 // so that you can test the component and not
@@ -41,28 +46,25 @@ class Login extends Component {
     } = this.props
 
     return (
-      <div className="login">
+      <div className="login col-xs-4 center">
         <form className="login-form" onSubmit={handleSubmit(this.submit)}>
           <h1>Login</h1>
-          <label htmlFor="username">Username</label>
-          <Field
-            name="username"
-            type="text"
-            id="username"
-            className="username"
-            label="Username"
-            component="input"
-          />
-          <label htmlFor="password">Password</label>
-          <Field
-            name="password"
-            type="password"
-            id="password"
-            className="password"
-            label="Password"
-            component="input"
-          />
-          <button action="submit">LOGIN</button>
+          <FormGroup>
+            <ControlLabel>Username</ControlLabel>
+            <Field name="username" type="text" component={ReduxFormControl} />
+            <ControlLabel>Password</ControlLabel>
+            <Field
+              name="password"
+              type="password"
+              component={ReduxFormControl}
+            />
+          </FormGroup>
+          <Button
+            className="btn btn-primary"
+            onClick={handleSubmit(this.submit)}
+            action="submit">
+            LOGIN
+          </Button>
         </form>
         <div className="auth-messages">
           {/* if there are messages or errors we show them here*/}
@@ -75,8 +77,8 @@ class Login extends Component {
           {!requesting &&
             successful && (
               <div>
-                Login Successful!{' '}
-                <Link to="/dashboard">Click here to go to the Dashboard</Link>
+                Login Successful! Click <Link to="/users">here</Link> to go to
+                the users page
               </div>
             )}
         </div>
