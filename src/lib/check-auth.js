@@ -31,7 +31,7 @@ export function checkIndexAuthorization({ dispatch }) {
   **/
   return (nextState, replace, next) => {
     if (checkAuthorization(dispatch)) {
-      replace('dashboard')
+      replace('users')
 
       return next()
     }

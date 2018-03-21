@@ -3,7 +3,10 @@ import { BrowserRouter, Route } from 'react-router-dom'
 
 import Navigationbar from '../navigationbar/index.js'
 import Users from '../users'
-import Login from '../login'
+import Login from '../login/components/'
+import { store } from '../configureStore'
+import { checkIndexAuthorization } from '../lib/check-auth'
+
 class App extends Component {
   render() {
     return (
@@ -11,9 +14,9 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Navigationbar />
-            <Route exact path="/login" component={Login} />
-
-            <Route exact path="/users" component={Users} />
+            <Route path="/" onEnter={checkIndexAuthorization(store)} />
+            <Route path="/login" component={Login} />
+            <Route path="/users" component={Users} />
           </div>
         </BrowserRouter>
       </div>
