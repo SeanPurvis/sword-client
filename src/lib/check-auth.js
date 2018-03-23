@@ -32,7 +32,6 @@ export function checkIndexAuthorization({ dispatch }) {
   return (nextState, replace, next) => {
     if (checkAuthorization(dispatch)) {
       replace('users')
-
       return next()
     }
 
@@ -41,7 +40,7 @@ export function checkIndexAuthorization({ dispatch }) {
   }
 }
 
-export function checkDashboardAuthorization({ dispatch, getState }) {
+export function checkUserAuthorization({ dispatch, getState }) {
   /**
   @param nextState the next route being navigated to in the Router
   @param replace a helper to change the route

@@ -2,15 +2,14 @@ import React, { Component } from 'react'
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { IndexLinkContainer } from 'react-router-bootstrap'
 import { connect } from 'react-redux'
-
 import { unsetClient } from '../client/actions'
 
 class Navigationbar extends Component {
-  logout = () => {
-    const { dispatch } = this.props
-    dispatch(unsetClient())
+  logout = values => {
+    this.props.unsetClient()
   }
   render() {
+    const onLogoutClick = this.props
     return (
       <Navbar fluid inverse>
         <Navbar.Header>
@@ -19,7 +18,9 @@ class Navigationbar extends Component {
           </Navbar.Brand>
         </Navbar.Header>
         <Nav>
-          <IndexLinkContainer onClick={this.logout} to="/login">
+          <IndexLinkContainer
+            onClick={(() => onLogoutClick, localStorage.clear())}
+            to="/login">
             <NavItem eventKey={1}>Logout</NavItem>
           </IndexLinkContainer>
           <IndexLinkContainer to="/users">
@@ -35,6 +36,6 @@ const mapStateToProps = state => ({
   client: state.client
 })
 
-connect(mapStateToProps)(Navigationbar)
+connect(mapStateToProps, { unsetClient })(Navigationbar)
 
 export default Navigationbar

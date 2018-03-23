@@ -2,7 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
-import { Table } from 'react-bootstrap'
+import {
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  Button,
+  Table
+} from 'react-bootstrap'
 
 import Messages from '../notifications/Messages'
 import Errors from '../notifications/Errors'
@@ -10,6 +16,10 @@ import Errors from '../notifications/Errors'
 import { userCreate, userRequest } from './actions'
 
 const usernameRequired = value => (value ? undefined : 'Username Required')
+
+function ReduxFormControl({ input, meta, ...props }) {
+  return <FormControl {...props} {...input} />
+}
 
 class Users extends Component {
   static propTypes = {
@@ -53,91 +63,91 @@ class Users extends Component {
     return (
       <div className="users">
         <div className="user-form">
-          <form onSubmit={handleSubmit(this.submit)}>
+          <form className="col-xs-4" onSubmit={handleSubmit(this.submit)}>
             <h2>CREATE USER</h2>
-            <label htmlFor="username">Username:</label>
-            <Field
-              name="username"
-              type="text"
-              id="username"
-              className="username"
-              label="Username"
-              component="input"
-              validate={usernameRequired}
-            />
-            <br />
-            <label htmlFor="name">Name:</label>
-            <Field
-              name="name"
-              type="text"
-              id="name"
-              className="name"
-              label="name"
-              component="input"
-            />
-            <br />
-            <label htmlFor="phone">Phone:</label>
-            <Field
-              name="phone"
-              type="text"
-              id="phone"
-              className="phone"
-              label="phone"
-              component="input"
-            />
-            <br />
-            <label htmlFor="password">Password:</label>
-            <Field
-              name="password"
-              type="password"
-              id="password"
-              className="password"
-              label="password"
-              component="input"
-            />
-            <br />
-            <label htmlFor="employer">Employer:</label>
-            <Field
-              name="employer"
-              type="text"
-              id="employer"
-              className="employer"
-              label="employer"
-              component="input"
-            />
-            <br />
-            <label htmlFor="email">Email:</label>
-            <Field
-              name="email"
-              type="email"
-              id="email"
-              className="email"
-              label="email"
-              component="input"
-            />
-            <br />
-            <label htmlFor="role">Role:</label>
-            <Field
-              name="role"
-              id="role"
-              className="role"
-              label="role"
-              component="select">
-              <option />
-              <option value="adminjail">adminjail</option>
-              <option value="admincourt">admincourt</option>
-              <option value="nurse">nurse</option>
-              <option value="jailer">jailer</option>
-              <option value="clerk">clerk</option>
-              <option value="counselor">counselor</option>
-            </Field>
-            <br />
-            <button
+            <FormGroup>
+              <ControlLabel>Username:</ControlLabel>
+              <Field
+                name="username"
+                type="text"
+                id="username"
+                className="username"
+                label="Username"
+                component={ReduxFormControl}
+                validate={usernameRequired}
+              />
+              <ControlLabel>Name:</ControlLabel>
+              <Field
+                name="name"
+                type="text"
+                id="name"
+                className="name"
+                label="name"
+                component={ReduxFormControl}
+              />
+              <ControlLabel>Phone:</ControlLabel>
+              <Field
+                name="phone"
+                type="text"
+                id="phone"
+                className="phone"
+                label="phone"
+                component={ReduxFormControl}
+              />
+              <ControlLabel>Password:</ControlLabel>
+              <Field
+                name="password"
+                type="password"
+                id="password"
+                className="password"
+                label="password"
+                component={ReduxFormControl}
+              />
+              <ControlLabel>Employer:</ControlLabel>
+              <Field
+                name="employer"
+                type="text"
+                id="employer"
+                className="employer"
+                label="employer"
+                component={ReduxFormControl}
+              />
+              <ControlLabel>Email:</ControlLabel>
+              <Field
+                name="email"
+                type="email"
+                id="email"
+                className="email"
+                label="email"
+                component={ReduxFormControl}
+              />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Role:</ControlLabel>
+              <Field
+                name="role"
+                id="role"
+                className="role"
+                label="role"
+                component="select">
+                <option />
+                <option value="adminjail">adminjail</option>
+                <option value="admincourt">admincourt</option>
+                <option value="nurse">nurse</option>
+                <option value="jailer">jailer</option>
+                <option value="clerk">clerk</option>
+                <option value="counselor">counselor</option>
+              </Field>
+            </FormGroup>
+            <Button
               className="btn btn-primary"
               disabled={invalid}
               action="submit">
               CREATE
-            </button>
+            </Button>
+            <Button className="btn btn-primary" onClick={this.fetchUsers}>
+              REFRESH
+            </Button>
           </form>
           <hr />
           <div className="user-messages">
@@ -155,9 +165,6 @@ class Users extends Component {
           </div>
         </div>
         <div className="user-list">
-          <button className="btn btn-primary" onClick={this.fetchUsers}>
-            REFRESH
-          </button>
           <Table striped bordered condensed hover>
             <thead>
               <tr>
