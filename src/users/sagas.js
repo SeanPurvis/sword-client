@@ -9,7 +9,7 @@ import {
   userRequestError
 } from './actions'
 
-const usersUrl = `${process.env.REACT_APP_API_URL}/MyUser`
+const usersUrl = `${process.env.REACT_APP_API_URL}/api/v1/user`
 
 // Nice little helper to deal with the response
 // converting it to json, and handling errors

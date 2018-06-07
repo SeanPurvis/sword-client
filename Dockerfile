@@ -8,4 +8,4 @@ ADD . /sword
 WORKDIR /sword
 RUN npm install
 
-ENTRYPOINT ["npm", "start"]
+CMD cd /sword && npm install && npm start
