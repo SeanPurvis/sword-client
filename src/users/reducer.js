@@ -63,8 +63,8 @@ const reducer = function userReducer(state = initialState, action) {
     case USER_REQUESTING:
       return {
         ...state, // ensure that we don't erase fetched ones
-        requesting: false,
-        successful: true,
+        requesting: true,
+        successful: false,
         messages: [
           {
             body: 'Fetching users...!',
